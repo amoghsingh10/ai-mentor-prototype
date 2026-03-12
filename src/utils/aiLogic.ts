@@ -34,9 +34,9 @@ export const getMentorResponse = async (
     }
 
     try {
-        // Use gemini-2.5-flash as the default model
+        // Use gemini-flash-latest to automatically route to the best available free-tier flash model
         const model = genAI.getGenerativeModel({
-             model: 'gemini-2.5-flash',
+             model: 'gemini-flash-latest',
              systemInstruction: SYSTEM_PROMPT
         });
 
