@@ -34,9 +34,9 @@ export const getMentorResponse = async (
     }
 
     try {
-        // Use gemini-1.5-flash-latest to avoid hitting the strict 2.5-flash free-tier rate limits
+        // Use gemini-1.5-pro to ensure availability
         const model = genAI.getGenerativeModel({
-             model: 'gemini-1.5-flash-latest',
+             model: 'gemini-1.5-pro',
              systemInstruction: SYSTEM_PROMPT
         });
 
