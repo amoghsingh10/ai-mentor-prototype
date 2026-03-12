@@ -34,9 +34,9 @@ export const getMentorResponse = async (
     }
 
     try {
-        // Use gemini-2.0-flash as it is the available free tier model for this project
+        // Use gemini-2.5-flash as the default model
         const model = genAI.getGenerativeModel({
-             model: 'gemini-2.0-flash',
+             model: 'gemini-2.5-flash',
              systemInstruction: SYSTEM_PROMPT
         });
 
