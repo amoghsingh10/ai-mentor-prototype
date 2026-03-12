@@ -69,7 +69,7 @@ export const getMentorResponse = async (
         const chat = model.startChat({
              history: formattedHistory,
              generationConfig: {
-                maxOutputTokens: 500,
+                maxOutputTokens: 2048,
              }
         });
 
