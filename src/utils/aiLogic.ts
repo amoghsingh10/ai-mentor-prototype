@@ -34,9 +34,9 @@ export const getMentorResponse = async (
     }
 
     try {
-        // Use gemini-1.5-pro to ensure availability
+        // Use gemini-1.5-flash because it has a generous free tier
         const model = genAI.getGenerativeModel({
-             model: 'gemini-1.5-pro',
+             model: 'gemini-1.5-flash',
              systemInstruction: SYSTEM_PROMPT
         });
 
