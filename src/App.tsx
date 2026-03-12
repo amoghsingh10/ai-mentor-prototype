@@ -31,30 +31,36 @@ function App() {
 
   // Trigger initial greeting once onboarded
   useEffect(() => {
-    if (context.isOnboarded && messages.length === 0) {
-      const greetingMsg = getMentorResponse("hello initialization string", context);
-      setMessages([greetingMsg]);
-    }
+    let isMounted = true;
+    const initGreeting = async () => {
+        if (context.isOnboarded && messages.length === 0) {
+            const greetingMsg = await getMentorResponse("hello initialization string", context, []);
+            if (isMounted) {
+                setMessages([greetingMsg]);
+            }
+        }
+    };
+    initGreeting();
+    return () => { isMounted = false; };
   }, [context.isOnboarded, context, messages.length]);
 
   const handleOnboardComplete = (newContextData: Partial<UserContext>) => {
     setContext({ ...context, ...newContextData, isOnboarded: true });
   };
 
-  const handleSendMessage = (text: string) => {
+  const handleSendMessage = async (text: string) => {
     const userMsg: Message = {
       id: Date.now().toString(),
       role: 'user',
       content: text
     };
 
-    setMessages(prev => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
 
-    // Simulate network delay for AI thinking
-    setTimeout(() => {
-      const aiResponse = getMentorResponse(text, context);
-      setMessages(prev => [...prev, aiResponse]);
-    }, 1200);
+    // Call the AI Mentor
+    const aiResponse = await getMentorResponse(text, context, updatedMessages);
+    setMessages(prev => [...prev, aiResponse]);
   };
 
   return (
